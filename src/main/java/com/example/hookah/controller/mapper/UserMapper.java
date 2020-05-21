@@ -10,28 +10,22 @@ import java.util.List;
 public interface UserMapper {
 
     @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "email", target = "email"),
             @Mapping(target = "password", ignore = true),
-            @Mapping(source = "createdAt", target = "createdAt"),
-            @Mapping(source = "isEnabled", target = "isEnabled")
     })
-    @Named("userToUserDTO")
     UserDTO userToUserDTO(User user);
 
-    @IterableMapping(qualifiedByName = "userToUserDTO")
-    List<UserDTO> userToUserDTO(List<User> users);
-
+    List<UserDTO> usersToUserDTOs(List<User> users);
 
     @Mappings({
-            @Mapping(source = "userDTO.id", target = "id"),
-            @Mapping(source = "userDTO.name", target = "name"),
-            @Mapping(source = "userDTO.email", target = "email"),
-            @Mapping(source = "userDTO.password", target = "password"),
-            @Mapping(source = "userDTO.isEnabled", target = "isEnabled"),
-            @Mapping(target = "roleSet", ignore = true)
+            @Mapping(target = "roles", ignore = true),
+            @Mapping(target = "administratorHookahHistories", ignore = true),
+            @Mapping(target = "visitorHookahHistories", ignore = true),
+            @Mapping(target = "chats", ignore = true),
+            @Mapping(target = "restaurantReviews", ignore = true),
+            @Mapping(target = "favouriteRestaurants", ignore = true),
     })
-    User userDtoToUser(UserDTO userDTO);
+    User userDTOToUser(UserDTO userDTO);
+
+    List<User> userDTOsToUsers(List<UserDTO> userDTOs);
 
 }

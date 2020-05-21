@@ -2,7 +2,6 @@ package com.example.hookah.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
 @Data
 public class UserDTO {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @NotBlank
@@ -29,10 +27,21 @@ public class UserDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @DateTimeFormat
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime createdAt;
 
     private Boolean isEnabled;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String accountLevelName;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Long smokingTime;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Short preferredPower;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Short preferredTemperature;
 
 }

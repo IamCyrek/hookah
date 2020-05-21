@@ -1,6 +1,6 @@
 package com.example.hookah.model;
 
 public enum RoleName {
-    ROLE_ADMIN,
-    ROLE_USER
+    ROLE_FULL_ACCESS,
+    ROLE_STAFF
 }

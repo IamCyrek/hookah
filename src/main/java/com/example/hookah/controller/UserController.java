@@ -28,14 +28,14 @@ public class UserController {
     private final UserMapper userMapper;
 
     @GetMapping
-    public List<UserDTO> getAllUsers(@SortDefault(sort = "id") Sort sort) {
-        return userMapper.userToUserDTO((userService.getAllUsers(sort)));
+    public List<UserDTO> getAll(@SortDefault(sort = "id") Sort sort) {
+        return userMapper.usersToUserDTOs((userService.getAll(sort)));
     }
 
     @PostMapping(value = REGISTRATION)
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO createUser(@Valid @RequestBody UserDTO userDTO) {
-        return userMapper.userToUserDTO(userService.createUser(userMapper.userDtoToUser(userDTO), encoder));
+    public UserDTO create(@Valid @RequestBody UserDTO userDTO) {
+        return userMapper.userToUserDTO(userService.create(userMapper.userDTOToUser(userDTO), encoder));
     }
 
 }

@@ -1,2 +1,4 @@
-INSERT INTO role (name) VALUES ('ROLE_ADMIN');
-INSERT INTO role (name) VALUES ('ROLE_USER');
+INSERT INTO role (id, name)
+VALUES (1, 'ROLE_FULL_ACCESS'),
+       (2, 'ROLE_STAFF');
+ALTER SEQUENCE role_id_seq RESTART WITH 3;

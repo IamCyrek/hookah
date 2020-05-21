@@ -1,6 +1,5 @@
 package com.example.hookah.service;
 
-import com.example.hookah.model.RoleName;
 import com.example.hookah.model.User;
 import com.example.hookah.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -22,7 +19,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    private final RoleService roleService;
+    private final AccountLevelService accountLevelService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException
@@ -34,16 +31,22 @@ public class UserService implements UserDetailsService {
         );
     }
 
-    public List<User> getAllUsers(Sort sort) {
-        return userRepository.findAll(sort);
+    public List<User> getAll(Sort sort) {
+        List<User> users = userRepository.findAll(sort);
+        users.forEach(user -> user.setSmokingTime(user.getSmokingTime() / 3600));
+        users.forEach(user ->
+                accountLevelService.getAccountLevelByValue(user.getSmokingTime())
+                        .ifPresent(accountLevel -> user.setAccountLevelName(accountLevel.getName())));
+
+        return users;
     }
 
-    public User createUser(User user, PasswordEncoder encoder) {
+    public User create(User user, PasswordEncoder encoder) {
         user.setId(null);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
         user.setIsEnabled(true);
-        user.setRoleSet(new HashSet<>(Collections.singletonList(roleService.findRoleByName(RoleName.ROLE_USER))));
+        user.setSmokingTime(0L);
 
         return userRepository.save(user);
     }

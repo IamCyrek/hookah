@@ -1,6 +1,9 @@
 package com.example.hookah.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,17 +49,60 @@ public class User implements UserDetails {
     @NotNull
     private Boolean isEnabled;
 
+    @Transient
+    private String accountLevelName;
+
+    @Column(nullable = false)
+    @NotNull
+    private Long smokingTime;
+
+    @Column
+    private Short preferredPower;
+
+    @Column
+    private Short preferredTemperature;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roleSet = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "administrator")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<HookahHistory> administratorHookahHistories = new HashSet<>();
+
+    @OneToMany(mappedBy = "visitor")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<HookahHistory> visitorHookahHistories = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<Chat> chats = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<RestaurantReview> restaurantReviews = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<FavouriteRestaurant> favouriteRestaurants = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        for (Role role : roleSet)
+        for (Role role : roles)
             authorities.add(new SimpleGrantedAuthority(role.getName().name()));
 
         return authorities;
