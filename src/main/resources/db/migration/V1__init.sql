@@ -31,7 +31,7 @@ CREATE TABLE tobacco
     id                BIGSERIAL PRIMARY KEY,
     custom_tobacco_id VARCHAR(31)  NOT NULL,
     name              VARCHAR(255) NOT NULL,
-    status            VARCHAR(15)  NOT NULL,
+--     status            VARCHAR(15)  NOT NULL,
     UNIQUE (name)
 );
 

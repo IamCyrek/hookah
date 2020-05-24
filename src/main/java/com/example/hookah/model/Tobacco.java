@@ -31,10 +31,10 @@ public class Tobacco {
     @Size(min = 3, max = 255)
     private String name;
 
-    @Column(nullable = false)
+    /*@Column(nullable = false)
     @NotNull
     @Enumerated(EnumType.STRING)
-    private TobaccoStatus status;
+    private TobaccoStatus status;*/
 
     @OneToMany(mappedBy = "tobacco")
     @EqualsAndHashCode.Exclude

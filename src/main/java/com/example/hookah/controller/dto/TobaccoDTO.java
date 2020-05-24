@@ -20,7 +20,7 @@ public class TobaccoDTO {
     @Size(min = 3, max = 255)
     private String name;
 
-    @NotNull
-    private TobaccoStatus status;
+    /*@NotNull
+    private TobaccoStatus status;*/
 
 }
