@@ -16,5 +16,6 @@ public class Constants {
     public static final String API_USERS = API + "/users";
 
     public static final String REGISTRATION = "/registration";
+    public static final String AUTHENTICATION = "/authentication";
 
 }
