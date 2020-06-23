@@ -34,4 +34,9 @@ public class RestaurantDTO {
     @Max(3)
     private Short rating;
 
+    private Short maxNumberReservations;
+
+    @NotNull
+    private Boolean isFavourite;
+
 }

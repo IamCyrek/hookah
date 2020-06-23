@@ -38,10 +38,4 @@ public class UserDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long smokingTime;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Short preferredPower;
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Short preferredTemperature;
-
 }

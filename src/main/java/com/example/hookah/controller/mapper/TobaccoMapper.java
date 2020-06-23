@@ -18,6 +18,7 @@ public interface TobaccoMapper {
 
     @Mappings({
             @Mapping(target = "hookahHistories", ignore = true),
+            @Mapping(target = "tobaccoRestaurants", ignore = true),
     })
     Tobacco tobaccoDTOToTobacco(TobaccoDTO tobaccoDTO);
 

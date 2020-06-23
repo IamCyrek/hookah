@@ -1,6 +1,7 @@
 package com.example.hookah.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -56,11 +57,10 @@ public class User implements UserDetails {
     @NotNull
     private Long smokingTime;
 
-    @Column
-    private Short preferredPower;
-
-    @Column
-    private Short preferredTemperature;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    @JsonManagedReference
+    private Restaurant restaurant;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
@@ -97,6 +97,12 @@ public class User implements UserDetails {
     @ToString.Exclude
     @JsonBackReference
     private Set<FavouriteRestaurant> favouriteRestaurants = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<Reservation> reservations = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

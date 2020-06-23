@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, uses = { HookahMapper.class,
-        TobaccoMapper.class, UserMapper.class })
+        TobaccoMapper.class, UserMapper.class, RestaurantMapper.class })
 public interface HookahHistoryMapper {
 
     HookahHistoryDTO hookahHistoryToHookahHistoryDTO(HookahHistory hookahHistory);

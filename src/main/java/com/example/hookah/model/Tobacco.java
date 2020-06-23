@@ -7,7 +7,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,15 +30,20 @@ public class Tobacco {
     @Size(min = 3, max = 255)
     private String name;
 
-    /*@Column(nullable = false)
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private TobaccoStatus status;*/
+    @Column
+    @Size(max = 4095)
+    private String profile;
 
     @OneToMany(mappedBy = "tobacco")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference
     private Set<HookahHistory> hookahHistories = new HashSet<>();
+
+    @OneToMany(mappedBy = "tobacco")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<TobaccoRestaurant> tobaccoRestaurants = new HashSet<>();
 
 }

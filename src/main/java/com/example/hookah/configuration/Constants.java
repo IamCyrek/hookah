@@ -10,9 +10,11 @@ public class Constants {
 
     public static final String API_HOOKAH_HISTORIES = API + "/hookahHistories";
     public static final String API_HOOKAHS = API + "/hookahs";
+    public static final String API_RESERVATIONS = API + "/reservations";
     public static final String API_RESTAURANT_REVIEWS = API + "/restaurantReviews";
     public static final String API_RESTAURANTS = API + "/restaurants";
     public static final String API_TOBACCOS = API + "/tobaccos";
+    public static final String API_TOBACCO_RESTAURANTS = API + "/tobaccoRestaurants";
     public static final String API_USERS = API + "/users";
 
     public static final String REGISTRATION = "/registration";

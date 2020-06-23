@@ -38,6 +38,11 @@ public class HookahHistory {
     @JsonManagedReference
     private User visitor;
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    @JsonManagedReference
+    private Restaurant restaurant;
+
     @Column(nullable = false, name = "cash")
     @NotNull
     @Min(0)

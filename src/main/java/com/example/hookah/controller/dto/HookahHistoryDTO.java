@@ -20,6 +20,8 @@ public class HookahHistoryDTO {
 
     private UserDTO visitor;
 
+    private RestaurantDTO restaurant;
+
     @NotNull
     @Min(0)
     private BigDecimal cash;

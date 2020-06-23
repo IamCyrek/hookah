@@ -1,15 +1,37 @@
+CREATE TABLE restaurant
+(
+    id                      BIGSERIAL PRIMARY KEY,
+    name                    VARCHAR(255)  NOT NULL,
+    description             VARCHAR(2047) NOT NULL,
+    address                 VARCHAR(255)  NOT NULL,
+    number                  VARCHAR(15)   NOT NULL,
+    latitude                REAL,
+    longitude               REAL,
+    rating                  SMALLINT      NOT NULL,
+    max_number_reservations SMALLINT,
+    UNIQUE (name)
+);
+
 CREATE TABLE public.user
 (
-    id                    BIGSERIAL PRIMARY KEY,
-    name                  VARCHAR(255) NOT NULL,
-    email                 VARCHAR(63)  NOT NULL,
-    password              VARCHAR(63)  NOT NULL,
-    created_at            TIMESTAMP    NOT NULL,
-    is_enabled            BOOLEAN      NOT NULL,
-    smoking_time          BIGINT       NOT NULL,
-    preferred_power       SMALLINT,
-    preferred_temperature SMALLINT,
+    id            BIGSERIAL PRIMARY KEY,
+    name          VARCHAR(255) NOT NULL,
+    email         VARCHAR(63)  NOT NULL,
+    password      VARCHAR(63)  NOT NULL,
+    created_at    TIMESTAMP    NOT NULL,
+    is_enabled    BOOLEAN      NOT NULL,
+    smoking_time  BIGINT       NOT NULL,
+    restaurant_id BIGINT REFERENCES restaurant (id),
     UNIQUE (email)
+);
+
+CREATE TABLE reservation
+(
+    id                    BIGSERIAL PRIMARY KEY,
+    restaurant_id         BIGINT REFERENCES restaurant (id)  NOT NULL,
+    user_id               BIGINT REFERENCES public.user (id) NOT NULL,
+    start_time            TIMESTAMP                          NOT NULL,
+    visitors_number       SMALLINT
 );
 
 CREATE TABLE role
@@ -31,21 +53,17 @@ CREATE TABLE tobacco
     id                BIGSERIAL PRIMARY KEY,
     custom_tobacco_id VARCHAR(31)  NOT NULL,
     name              VARCHAR(255) NOT NULL,
---     status            VARCHAR(15)  NOT NULL,
+    profile           VARCHAR(4095),
     UNIQUE (name)
 );
 
-CREATE TABLE restaurant
+CREATE TABLE tobacco_restaurant
 (
-    id          BIGSERIAL PRIMARY KEY,
-    name        VARCHAR(255)  NOT NULL,
-    description VARCHAR(2000) NOT NULL,
-    address     VARCHAR(255)  NOT NULL,
-    number      VARCHAR(16)   NOT NULL,
-    latitude    REAL,
-    longitude   REAL,
-    rating      SMALLINT      NOT NULL,
-    UNIQUE (name)
+    tobacco_id    BIGINT REFERENCES tobacco (id)    NOT NULL,
+    restaurant_id BIGINT REFERENCES restaurant (id) NOT NULL,
+    status        VARCHAR(15)                       NOT NULL,
+    amount        SMALLINT,
+    PRIMARY KEY (tobacco_id, restaurant_id)
 );
 
 CREATE TABLE hookah
@@ -65,6 +83,7 @@ CREATE TABLE hookah_history
     tobacco_id       BIGINT REFERENCES tobacco (id)     NOT NULL,
     administrator_id BIGINT REFERENCES public.user (id) NOT NULL,
     visitor_id       BIGINT REFERENCES public.user (id) NOT NULL,
+    restaurant_id    BIGINT REFERENCES restaurant (id)  NOT NULL,
     cash             NUMERIC(10, 2)                     NOT NULL,
     start_time       TIMESTAMP,
     end_time         TIMESTAMP

@@ -18,8 +18,12 @@ public interface RestaurantMapper {
 
     @Mappings({
             @Mapping(target = "hookahs", ignore = true),
+            @Mapping(target = "hookahHistories", ignore = true),
+            @Mapping(target = "users", ignore = true),
+            @Mapping(target = "reservations", ignore = true),
             @Mapping(target = "restaurantReviews", ignore = true),
             @Mapping(target = "favouriteRestaurants", ignore = true),
+            @Mapping(target = "tobaccoRestaurants", ignore = true),
     })
     Restaurant restaurantDTOToRestaurant(RestaurantDTO restaurantDTO);
 

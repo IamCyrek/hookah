@@ -51,11 +51,35 @@ public class Restaurant {
     @Max(3)
     private Short rating;
 
+    @Column
+    private Short maxNumberReservations;
+
+    @Transient
+    private Boolean isFavourite;
+
     @OneToMany(mappedBy = "restaurant")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference
     private Set<Hookah> hookahs = new HashSet<>();
+
+    @OneToMany(mappedBy = "restaurant")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<HookahHistory> hookahHistories = new HashSet<>();
+
+    @OneToMany(mappedBy = "restaurant")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<User> users = new HashSet<>();
+
+    @OneToMany(mappedBy = "restaurant")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<Reservation> reservations = new HashSet<>();
 
     @OneToMany(mappedBy = "restaurant")
     @EqualsAndHashCode.Exclude
@@ -68,5 +92,11 @@ public class Restaurant {
     @ToString.Exclude
     @JsonBackReference
     private Set<FavouriteRestaurant> favouriteRestaurants = new HashSet<>();
+
+    @OneToMany(mappedBy = "restaurant")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Set<TobaccoRestaurant> tobaccoRestaurants = new HashSet<>();
 
 }
